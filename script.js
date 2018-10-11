@@ -104,7 +104,7 @@ function scoreTally(person, hands, score, values) {
                 countA -= 1
             }
         } else {
-            if (card === 'A' || card === 'loA') {
+            if (card === 'A') {
                 score[person] -= 10
             }
         }
