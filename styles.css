@@ -1,0 +1,55 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+section {
+    position: relative;
+}
+
+.card {
+    width: 160px;
+    height: 225px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 10px;
+}
+
+.blank {
+    width: 160px;
+    height: 225px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    background-color: #000000;
+    padding: 10px;
+    position: absolute;
+    z-index: -10;
+}
+
+.card1 {
+    position: absolute;
+    top: 0;
+    left: 30px;
+}
+
+.d.card0 {
+    visibility: hidden;
+}
+
+div {
+    font-size: 2.5rem;
+}
+
+.centreImage {
+    display: block;
+    text-align: center;
+    font-size: 8rem;
+}
+
+.hearts, .diams {
+    color: #ff0000;
+}
