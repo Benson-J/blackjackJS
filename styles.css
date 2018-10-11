@@ -26,14 +26,8 @@ section {
     border-radius: 10px;
     background-color: #000000;
     padding: 10px;
-    position: absolute;
+    position: relative;
     z-index: -10;
-}
-
-.card1 {
-    position: absolute;
-    top: 0;
-    left: 30px;
 }
 
 .d.card0 {

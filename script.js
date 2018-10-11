@@ -1,7 +1,7 @@
 var deck = []
 var hands = {d: [], p: []}
 var score = {d: 0, p: 0}
-var cardNo = 2
+var cardNo = 0
 var suits = ['hearts', 'diams', 'clubs', 'spades']
 var cards = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
 var values = {'A': 11, 'hiA': 11, 'loA': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 10, 'Q': 10, 'K': 10}
@@ -11,35 +11,14 @@ var gameEnd = new CustomEvent('gameEnd', {
     cancelable: true
 })
 
-suits.forEach(function(suit) {
-    cards.forEach(function(card) {
-        deck.push({
-            'card': card,
-            'suit': suit
-        })
-    })
-})
+createDeck(cards, suits)
 
-document.querySelectorAll('.card').forEach(function(card) {
-    var person = card.className[0]
-    cardIntoHand(card, person, hands)
-})
+deal()
 
 document.querySelector('.hit').addEventListener('click', function() {
-    document.querySelector('.player').innerHTML +=
-        '<div class="p card card' + cardNo + '" style="position: absolute; top: 0; left: ' + 30*cardNo + 'px">\n' +
-        '   <span class="value"></span><br>\n' +
-        '   <span class="suit"></span>\n' +
-        '   <span class="suit centreImage"></span>\n' +
-        '</div>'
-    newCard = document.querySelector('.card' + cardNo)
-    cardIntoHand(newCard, 'p', hands)
-    cardNo++
-    scoreTally('p', hands, score, values)
-    if (score['p'] >= 21) {
-        document.querySelector('body').dispatchEvent(gameEnd)
-    }
+    dealOne('p', cardNo)
 })
+
 
 document.querySelector('.stand').addEventListener('click', function() {
     document.querySelector('body').dispatchEvent(gameEnd)
@@ -52,8 +31,44 @@ document.querySelector('body').addEventListener('gameEnd', function () {
     document.querySelectorAll('button').forEach(function(button) {
         button.parentNode.removeChild(button)
     })
-    document.querySelector('.d.card0').style = 'visibility: initial'
+    document.querySelector('.d.card0').style.visibility = 'initial'
 })
+
+function createDeck(cards, suits) {
+    suits.forEach(function(suit) {
+        cards.forEach(function(card) {
+            deck.push({
+                'card': card,
+                'suit': suit
+            })
+        })
+    })
+}
+
+function deal() {
+    dealOne('d', 0)
+    dealOne('d', 1)
+    dealOne('p', cardNo)
+    cardNo++
+    dealOne('p', cardNo)
+    cardNo++
+}
+
+function dealOne(person, cardNo) {
+    document.querySelector('.' + person + 'Hand').innerHTML +=
+        '<div class="' + person + ' card card' + cardNo + '" style="position: absolute; top: 0; left: ' + 30 * cardNo + 'px">\n' +
+        '   <span class="value"></span><br>\n' +
+        '   <span class="suit"></span>\n' +
+        '   <span class="suit centreImage"></span>\n' +
+        '</div>'
+    newCard = document.querySelector('.' + person + '.card' + cardNo)
+    cardIntoHand(newCard, person, hands)
+    scoreTally(person, hands, score, values)
+    if (score[person] >= 21) {
+        document.querySelector('body').dispatchEvent(gameEnd)
+    }
+    addAceToggles()
+}
 
 function addAceToggles() {
     document.querySelectorAll('.A.p').forEach(function (card) {
@@ -73,7 +88,7 @@ function addAceToggles() {
     })
 }
 
-function drawACard(deck) {
+function drawACard() {
     var keys = Object.keys(deck)
     var randomPick = keys.length * Math.random() << 0
     return deck.splice(randomPick, 1)[0]
@@ -87,7 +102,6 @@ function cardIntoHand(card, person, hands) {
     card.querySelectorAll('.suit').forEach(function(suit) {
         suit.innerHTML = '&' + drawnCard.suit + ';'
     })
-    addAceToggles()
 }
 
 function scoreTally(person, hands, score, values) {
