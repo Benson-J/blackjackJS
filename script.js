@@ -76,13 +76,12 @@ function deal() {
 function dealOne(person, cardNo) {
     var newCard
     document.querySelector('.' + person + 'Hand').innerHTML +=
-        '<div class="' + person + ' card" data-cardNo="' + cardNo + '" style="left: ' + 30 * cardNo + 'px">\n' +
+        '<div class="' + person + ' card" data-cardno="' + cardNo + '" style="left: ' + 30 * cardNo + 'px">\n' +
         '   <span class="value"></span>\n' +
         '   <span class="suit"></span>\n' +
         '   <span class="suit centreImage"></span>\n' +
         '</div>'
-    newCard = document.querySelector('.' + person + '[data-cardNo="' + cardNo + '"]')
-    console.log(newCard)
+    newCard = document.querySelector('.' + person + '[data-cardno="' + cardNo + '"]')
     cardIntoHand(newCard, person, hands)
     scoreTally(person, hands, score, values)
     if (score[person] >= 21) {
@@ -95,7 +94,8 @@ function addAceToggles() {
     document.querySelectorAll('.A.p').forEach(function (card) {
         card.addEventListener('click', function () {
             if (document.querySelector('.gameButtons').style.display !== 'none') {
-                var cardPosition = card.dataset.cardNo
+                var cardPosition = card.dataset.cardno
+                console.log(card.dataset)
                 if (card.style.background === 'rgb(0, 255, 0)') {
                     card.style.background = '#ffffff'
                     hands.p[cardPosition] = 'loA'
@@ -144,6 +144,7 @@ function scoreTally(person, hands, score, values) {
             if (card === 'A') {
                 score[person] -= 10
             }
+            document.querySelector('.currentScore').textContent = 'Current player score: ' + score[person]
         }
     })
     return score[person]

@@ -23,6 +23,7 @@ span {
     padding: 10px;
     position: absolute;
     top: 0;
+    font-size: 2.5rem;
 }
 
 .blank {
@@ -42,10 +43,6 @@ span {
 
 .endButtons {
     display: none;
-}
-
-div {
-    font-size: 2.5rem;
 }
 
 .centreImage {
