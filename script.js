@@ -17,21 +17,40 @@ deal()
 
 document.querySelector('.hit').addEventListener('click', function() {
     dealOne('p', cardNo)
+    cardNo++
 })
-
 
 document.querySelector('.stand').addEventListener('click', function() {
     document.querySelector('body').dispatchEvent(gameEnd)
 })
 
+document.querySelectorAll('.deal').forEach(function(button) {
+    button.addEventListener('click', function() {
+        document.querySelectorAll('.card').forEach(function(card) {
+            card.parentNode.removeChild(card)
+        })
+        document.querySelector('.score').innerHTML = ''
+        document.querySelector('.result').textContent = ''
+        hands = {d: [], p: []}
+        cardNo = 0
+        document.querySelector('.gameButtons').style.display = 'block'
+        document.querySelector('.endButtons').style.display = 'none'
+        if (button.id == 'new') {
+            deck = []
+            createDeck(cards, suits)
+        }
+        deal()
+    })
+})
+
+
 document.querySelector('body').addEventListener('gameEnd', function () {
     document.querySelector('.score').innerHTML = 'Dealer: ' + scoreTally('d', hands, score, values) +
         '<br>Player: ' + scoreTally('p', hands, score, values)
     document.querySelector('.result').textContent = result(score)
-    document.querySelectorAll('button').forEach(function(button) {
-        button.parentNode.removeChild(button)
-    })
-    document.querySelector('.d.card0').style.visibility = 'initial'
+    document.querySelector('.gameButtons').style.display = 'none'
+    document.querySelector('.endButtons').style.display = 'initial'
+    document.querySelector('.d.card0').style.display = 'initial'
 })
 
 function createDeck(cards, suits) {

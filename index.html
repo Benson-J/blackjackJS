@@ -14,12 +14,16 @@
     <section class="pHand">
         <div class="blank"></div>
     </section>
-    <button class="hit">Hit</button>
-    <button class="stand">Stand</button>
+    <div class="gameButtons">
+        <button class="hit">Hit</button>
+        <button class="stand">Stand</button>
+    </div>
     <h1 class="score"></h1>
     <h1 class="result"></h1>
-    <button class="deal dealNew">Deal from new deck</button>
-    <button class="deal dealCurrent">Deal from remaining deck</button><br>
+    <div class="endButtons">
+        <button class="deal" id="new">Deal from new deck</button>
+        <button class="deal">Deal from remaining deck</button><br>
+    </div>
     <h2>Click on player aces to toggle between low (white) & high (green)</h2>
 </body>
 <script src="script.js"></script>

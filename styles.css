@@ -31,7 +31,11 @@ section {
 }
 
 .d.card0 {
-    visibility: hidden;
+    display: none;
+}
+
+.endButtons {
+    display: none;
 }
 
 div {
