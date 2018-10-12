@@ -16,6 +16,10 @@ createDeck(cards, suits)
 deal()
 
 document.querySelector('.hit').addEventListener('click', function() {
+    if (deck.length === 0) {
+        document.querySelector('.cardsRemaining').textContent = 'Not enough cards left in deck, please stand'
+        return 0
+    }
     dealOne('p', cardNo)
     cardNo++
 })
@@ -26,6 +30,13 @@ document.querySelector('.stand').addEventListener('click', function() {
 
 document.querySelectorAll('.deal').forEach(function(button) {
     button.addEventListener('click', function() {
+        if (button.id === 'new') {
+            deck = []
+            createDeck(cards, suits)
+        } else if (deck.length < 4) {
+            document.querySelector('.cardsRemaining').textContent = 'Not enough cards left in deck, please deal from new deck'
+            return 0
+        }
         document.querySelectorAll('.card').forEach(function(card) {
             card.parentNode.removeChild(card)
         })
@@ -35,10 +46,6 @@ document.querySelectorAll('.deal').forEach(function(button) {
         cardNo = 0
         document.querySelector('.gameButtons').style.display = 'block'
         document.querySelector('.endButtons').style.display = 'none'
-        if (button.id === 'new') {
-            deck = []
-            createDeck(cards, suits)
-        }
         deal()
     })
 })
@@ -119,6 +126,7 @@ function drawACard() {
 
 function cardIntoHand(card, person, hands) {
     var drawnCard = drawACard(deck)
+    document.querySelector('.cardsRemaining').textContent = 'Cards left in deck: ' + deck.length
     hands[person].push(drawnCard.card)
     card.className += ' ' + drawnCard.suit + ' ' + drawnCard.card
     card.querySelector('.value').textContent = drawnCard.card
