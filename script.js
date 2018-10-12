@@ -35,7 +35,7 @@ document.querySelectorAll('.deal').forEach(function(button) {
         cardNo = 0
         document.querySelector('.gameButtons').style.display = 'block'
         document.querySelector('.endButtons').style.display = 'none'
-        if (button.id == 'new') {
+        if (button.id === 'new') {
             deck = []
             createDeck(cards, suits)
         }
@@ -74,9 +74,10 @@ function deal() {
 }
 
 function dealOne(person, cardNo) {
+    var newCard
     document.querySelector('.' + person + 'Hand').innerHTML +=
-        '<div class="' + person + ' card card' + cardNo + '" style="position: absolute; top: 0; left: ' + 30 * cardNo + 'px">\n' +
-        '   <span class="value"></span><br>\n' +
+        '<div class="' + person + ' card card' + cardNo + '" style="left: ' + 30 * cardNo + 'px">\n' +
+        '   <span class="value"></span>\n' +
         '   <span class="suit"></span>\n' +
         '   <span class="suit centreImage"></span>\n' +
         '</div>'
@@ -92,9 +93,9 @@ function dealOne(person, cardNo) {
 function addAceToggles() {
     document.querySelectorAll('.A.p').forEach(function (card) {
         card.addEventListener('click', function () {
-            if (document.querySelector('.gameButtons').style.display != 'none') {
+            if (document.querySelector('.gameButtons').style.display !== 'none') {
                 var cardPosition = card.className[11]
-                if (card.style.background == 'rgb(0, 255, 0)') {
+                if (card.style.background === 'rgb(0, 255, 0)') {
                     card.style.background = '#ffffff'
                     hands.p[cardPosition] = 'loA'
                 } else {
@@ -130,7 +131,7 @@ function scoreTally(person, hands, score, values) {
     score[person] = 0
     hands[person].forEach(function (card) {
         score[person] += values[card]
-        if (person == 'd') {
+        if (person === 'd') {
             if (card === 'A') {
                 countA += 1
             }

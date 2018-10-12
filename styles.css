@@ -10,6 +10,10 @@ section {
     position: relative;
 }
 
+span {
+    display: block;
+}
+
 .card {
     width: 160px;
     height: 225px;
@@ -17,6 +21,8 @@ section {
     border-radius: 10px;
     background-color: #ffffff;
     padding: 10px;
+    position: absolute;
+    top: 0;
 }
 
 .blank {
