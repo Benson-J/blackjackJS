@@ -92,16 +92,18 @@ function dealOne(person, cardNo) {
 function addAceToggles() {
     document.querySelectorAll('.A.p').forEach(function (card) {
         card.addEventListener('click', function () {
-            var cardPosition = card.className[11]
-            if (card.style.background == 'rgb(0, 255, 0)') {
-                card.style.background = '#ffffff'
-                hands.p[cardPosition] = 'loA'
-            } else {
-                card.style.background = '#00ff00'
-                hands.p[cardPosition] = 'hiA'
-            }
-            if (scoreTally('p', hands, score, values) >= 21) {
-                document.querySelector('body').dispatchEvent(gameEnd)
+            if (document.querySelector('.gameButtons').style.display != 'none') {
+                var cardPosition = card.className[11]
+                if (card.style.background == 'rgb(0, 255, 0)') {
+                    card.style.background = '#ffffff'
+                    hands.p[cardPosition] = 'loA'
+                } else {
+                    card.style.background = '#00ff00'
+                    hands.p[cardPosition] = 'hiA'
+                }
+                if (scoreTally('p', hands, score, values) >= 21) {
+                    document.querySelector('body').dispatchEvent(gameEnd)
+                }
             }
         })
     })
