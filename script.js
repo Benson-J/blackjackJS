@@ -57,7 +57,7 @@ document.querySelector('body').addEventListener('gameEnd', function () {
     document.querySelector('.result').textContent = result(score)
     document.querySelector('.gameButtons').style.display = 'none'
     document.querySelector('.endButtons').style.display = 'initial'
-    document.querySelector('.d.card0').style.display = 'initial'
+    document.querySelector('.d[data-cardno="0"]').style.display = 'initial'
 })
 
 function createDeck(cards, suits) {
